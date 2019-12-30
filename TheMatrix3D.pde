@@ -1,3 +1,5 @@
+// mero mero
+
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
@@ -36,6 +38,7 @@ TheSource source;
 //int H = 600;
 
 float yR ;
+boolean pause = true;
 
 void setup() {
   //fullScreen();
@@ -63,6 +66,8 @@ void draw() {
 //lights();
   //pointLight(0,0,0,255,255,255);
 //println(timer.getTime());
+if (pause) {
+} else {
   fft.forward(input.mix);
   song.play();
   fft.forward(song.mix);
@@ -136,8 +141,23 @@ if (dir[2]) {
   }
 
 }
+}
 
 void keyPressed() {
+  if (keyCode == ENTER) {
+    if (pause) {
+  letras = new Letras();
+  ps = new ParticleSystem();
+  source = new TheSource(10,10,10/*random(-3,3),random(-3,3),random(-3,3)*/, 5);
+  timer = new Timer(35);
+    pause = false;
+    song.play();
+    } else {
+    pause = true;
+    song.pause();
+    song.rewind();
+  }
+  }
   if (keyCode == LEFT) {
     dir[0] = true;
   }
@@ -221,4 +241,8 @@ void keyReleased() {
     upDown[3] = false;
   }
 
+}
+
+void pause() {
+  
 }
